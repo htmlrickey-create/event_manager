@@ -56,6 +56,14 @@
                         </span>
 
                         <span class="admin-label">権限: ADMIN</span>
+
+                        <form th:action="@{/event/delete}" method="post" class="delete-form">
+
+                            <input type="hidden" name="eventId" th:value="${event.Id}" >
+                            <button class="delete-button" type="submit"><span>削除</span></button>
+                        </form>
+
+                        
                     </div>
 
                     <div class="card-content">

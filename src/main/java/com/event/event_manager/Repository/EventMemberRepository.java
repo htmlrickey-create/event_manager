@@ -9,6 +9,7 @@ import com.event.event_manager.Entity.EventMembers;
 @Repository 
 public interface EventMemberRepository extends JpaRepository <EventMembers, Long> {
 
+    void deleteByEvent_Id(Long eventId);
     List <EventMembers> findByUser_IdAndRole(Long userId, String role);
 
     

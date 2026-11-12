@@ -19,6 +19,8 @@ import org.springframework.security.core.Authentication;
 import java.time.ZoneOffset;
 import java.util.List;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.yaml.snakeyaml.events.Event;
 
 @Service 
 @RequiredArgsConstructor 
@@ -77,6 +79,17 @@ public class EventService {
                 .stream()
                 .map(EventMembers::getEvent)
                 .toList();
+    }
+
+
+    @Transactional 
+    public void deleteEvent(Long eventId){
+
+        Events event = repository.findById(eventId).orElseThrow(()-> new RuntimeException("イベントが見つかりません"));
+
+        eventMemberRepository.deleteByEvent_Id(eventId);
+
+        repository.delete(event);
     }
     
 }

@@ -197,6 +197,69 @@ body {
     letter-spacing: 1px;
 }
 
+
+/* =========================
+   イベント削除フォーム
+========================= */
+
+.delete-form {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+}
+
+.delete-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #fff1f1;
+    color: #dc4545;
+    border: 1px solid #ffd5d5;
+
+    padding: 8px 15px;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.delete-button:hover {
+    background: #dc4545;
+    color: #ffffff;
+    border-color: #dc4545;
+
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(220, 69, 69, 0.18);
+}
+
+.delete-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.delete-button:focus-visible {
+    outline: 3px solid rgba(220, 69, 69, 0.25);
+    outline-offset: 3px;
+}
+
+/* カード上部の配置 */
+.card-top {
+    padding: 17px 22px;
+    border-bottom: 1px solid #edf0f5;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+
 /* カード内容 */
 
 .card-content {
