@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>主催イベント一覧 | Event Manager</title>
+
+    <link rel="stylesheet" th:href="@{/css/my-event.css}">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-inner">
+            <a href="/MyEvent" class="logo">Event Manager</a>
+
+            <nav class="header-nav">
+                <a href="/create_event" class="create-button">
+                    ＋ イベントを作成
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <section class="page-heading">
+            <h1>主催イベント一覧</h1>
+            <p class="description">
+                あなたが主催者として管理しているイベントです。
+            </p>
+        </section>
+
+        <section class="event-section">
+
+            <div class="section-heading">
+                <h2>管理中のイベント</h2>
+
+                <span class="event-count">
+                    <span th:text="${#lists.size(events)}">0</span> 件
+                </span>
+            </div>
+
+            <!-- イベントが存在する場合 -->
+            <div class="event-list" th:if="${not #lists.isEmpty(events)}">
+
+                <article class="event-card" th:each="event : ${events}">
+
+                    <div class="card-top">
+                        <span class="event-status"
+                              th:text="${event.status}"
+                              th:classappend="${event.status == 'PUBLISHED'} ? ' published' : ' other-status'">
+                            PUBLISHED
+                        </span>
+
+                        <span class="admin-label">権限: ADMIN</span>
+                    </div>
+
+                    <div class="card-content">
+                        <p class="school-name"
+                           th:text="${event.school.schoolName}">
+                            学校名
+                        </p>
+
+                        <h3 th:text="${event.eventName}">
+                            イベント名
+                        </h3>
+
+
+                        <p class="event-description"
+                           th:text="${event.description}">
+                            イベントの説明
+                        </p>
+
+                        <div class="event-date">
+
+                            <div class="date-item">
+                                <span class="date-label">開催日</span>
+                                <span th:text="${#temporals.format(event.startAt, 'yyyy/MM/dd HH:mm')}">
+                                    開始日時
+                                </span>
+                            </div>
+
+                            <div class="date-item">
+                                <span class="date-label">終了日</span>
+                                <span th:text="${#temporals.format(event.endAt, 'yyyy/MM/dd HH:mm')}">
+                                    終了日時
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            <!-- イベントが存在しない場合 -->
+            <div class="empty-state" th:if="${#lists.isEmpty(events)}">
+
+                <div class="empty-icon">📅</div>
+
+                <h3>イベントがありません</h3>
+
+                <p>
+                    まだADMINとして管理しているイベントはありません。
+                </p>
+
+                <a href="/create_event" class="create-button">
+                    イベントを作成する
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 Event Manager</p>
+    </footer>
+
+</body>
+</html>

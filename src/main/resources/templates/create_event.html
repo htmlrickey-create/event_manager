@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>イベント作成 | Event Manager</title>
+    <link rel="stylesheet" th:href="@{/css/create-event.css}">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-inner">
+            <h1>イベント管理</h1>
+            <a href="/MyEvent" class="back-button">
+                主催イベント一覧
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="page-heading">
+            <p class="sub-title">EVENT MANAGEMENT</p>
+            <h2>イベントを作成</h2>
+            <p>開催するイベントの情報を入力してください。</p>
+        </div>
+
+        <form th:action="@{/event/create}"
+              th:object="${eventForm}"
+              method="post"
+              class="event-form">
+
+            <div class="form-group">
+                <label for="schoolName">
+                    学校名 <span class="required">必須</span>
+                </label>
+                <input type="text"
+                       id="schoolName"
+                       th:field="*{schoolName}"
+                       placeholder="例：〇〇高等学校"
+                       maxlength="200"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="eventName">
+                    イベント名 <span class="required">必須</span>
+                </label>
+                <input type="text"
+                       id="eventName"
+                       th:field="*{eventName}"
+                       placeholder="例：〇〇高校文化祭"
+                       maxlength="200"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">
+                    イベントの説明 <span class="required">必須</span>
+                </label>
+                <textarea id="description"
+                          th:field="*{description}"
+                          placeholder="イベントの内容や目的などを入力してください。"
+                          maxlength="500"
+                          rows="5"
+                          required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="startAt">
+                    開始日時 <span class="required">必須</span>
+                </label>
+                <input type="datetime-local"
+                       id="startAt"
+                       th:field="*{startAt}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="endAt">
+                    終了日時 <span class="required">必須</span>
+                </label>
+                <input type="datetime-local"
+                       id="endAt"
+                       th:field="*{endAt}"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="status">
+                    イベントの状態 <span class="required">必須</span>
+                </label>
+                <select id="status" th:field="*{status}" required>
+                    <option value="">選択してください</option>
+                    <option value="DRAFT">下書き</option>
+                    <option value="PUBLISHED">公開</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="submit-button">
+                    イベントを作成
+                </button>
+
+                <a th:href="@{/}" class="cancel-button">
+                    キャンセル
+                </a>
+            </div>
+
+        </form>
+
+    </main>
+
+</body>
+</html>
