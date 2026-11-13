@@ -1,0 +1,684 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Manager | Event Manager</title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/booths/createBooths.css}">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- サイドバー -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">E</div>
+            <div>
+                <h2>イベント管理</h2>
+                <span>管理マネージャー</span>
+            </div>
+        </div>
+
+        <div class="event-info">
+            <span class="event-label">MANAGING EVENT</span>
+            <h3>イベント管理</h3>
+            <p>イベント識別Id: <span th:text="${eventId}"></span></p>
+        </div>
+
+        <nav class="navigation">
+
+            <span class="nav-heading">一般設定</span>
+
+            <a href="#dashboard" class="nav-link active">
+                <span class="nav-icon">▦</span>
+                ダッシュボード
+            </a>
+
+            <a href="#event" class="nav-link">
+                <span class="nav-icon">◇</span>
+                イベント管理
+            </a>
+
+            <span class="nav-heading">マネジメント</span>
+
+            <a href="#booths" class="nav-link">
+                <span class="nav-icon">▣</span>
+                出店管理
+            </a>
+
+            <a href="#orders" class="nav-link">
+                <span class="nav-icon">≡</span>
+                注文・会計管理
+            </a>
+
+            <a href="#finance" class="nav-link">
+                <span class="nav-icon">￥</span>
+                財務管理
+            </a>
+
+            <a href="#members" class="nav-link">
+                <span class="nav-icon">♙</span>
+                メンバー管理
+            </a>
+
+            <span class="nav-heading">精密システム設定</span>
+
+            <a href="#reports" class="nav-link">
+                <span class="nav-icon">▤</span>
+                分析・レポート
+            </a>
+
+            <a href="#system" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                システム管理
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="/MyEvent" class="back-link">
+                ← イベント一覧に戻る
+            </a>
+        </div>
+
+    </aside>
+
+
+    <!-- メインコンテンツ -->
+    <main class="main">
+
+        <header class="topbar">
+
+            <div>
+                <p class="breadcrumb">イベントマネジメント</p>
+                <h1>イベント全体管理マネージャー</h1>
+            </div>
+
+            <div class="topbar-right">
+                <span class="admin-badge">ADMIN</span>
+                <div class="profile">
+                    <div class="profile-icon">A</div>
+                    <span th:text="${username}"></span>
+                </div>
+            </div>
+
+        </header>
+
+
+        <div class="content">
+
+            <!-- メッセージ -->
+            <div class="message"
+                 th:if="${message}"
+                 th:text="${message}">
+            </div>
+
+
+            <!-- ダッシュボード -->
+            <section id="dashboard" class="section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">Dashboard</span>
+                        <h2>ダッシュボード</h2>
+                        <p>イベント全体の運営状況を確認できます。</p>
+                    </div>
+                </div>
+
+                <div class="overview-grid">
+
+                    <div class="overview-card">
+                        <span>総売上</span>
+                        <strong>¥ --</strong>
+                        <small>売上データ未接続</small>
+                    </div>
+
+                    <div class="overview-card">
+                        <span>総注文数</span>
+                        <strong>-- 件</strong>
+                        <small>注文データ未接続</small>
+                    </div>
+
+                    <div class="overview-card">
+                        <span>登録ブース数</span>
+                        <strong>-- 店</strong>
+                        <small>ブースデータ未接続</small>
+                    </div>
+
+                    <div class="overview-card">
+                        <span>イベント収支</span>
+                        <strong>¥ --</strong>
+                        <small>財務データ未接続</small>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-grid">
+
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3>運営メニュー</h3>
+                            <span>MANAGEMENT MENU</span>
+                        </div>
+
+                        <div class="quick-menu">
+
+                            <a href="#booths">
+                                <span class="quick-icon">▣</span>
+                                <div>
+                                    <strong>出店管理</strong>
+                                    <small>カテゴリー・ブース・商品</small>
+                                </div>
+                                <span class="arrow">→</span>
+                            </a>
+
+                            <a href="#orders">
+                                <span class="quick-icon">≡</span>
+                                <div>
+                                    <strong>注文・会計管理</strong>
+                                    <small>注文と決済の管理</small>
+                                </div>
+                                <span class="arrow">→</span>
+                            </a>
+
+                            <a href="#finance">
+                                <span class="quick-icon">￥</span>
+                                <div>
+                                    <strong>財務管理</strong>
+                                    <small>売上・入金・出金・経費</small>
+                                </div>
+                                <span class="arrow">→</span>
+                            </a>
+
+                            <a href="#members">
+                                <span class="quick-icon">♙</span>
+                                <div>
+                                    <strong>メンバー管理</strong>
+                                    <small>Admin・Staffの管理</small>
+                                </div>
+                                <span class="arrow">→</span>
+                            </a>
+
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3>システム状況</h3>
+                            <span>SYSTEM STATUS</span>
+                        </div>
+
+                        <div class="status-list">
+                            <div>
+                                <span>イベント管理</span>
+                                <span class="status-ready">利用可能</span>
+                            </div>
+
+                            <div>
+                                <span>カテゴリー管理</span>
+                                <span class="status-ready">利用可能</span>
+                            </div>
+
+                            <div>
+                                <span>ブース登録</span>
+                                <span class="status-ready">利用可能</span>
+                            </div>
+
+                            <div>
+                                <span>財務管理</span>
+                                <span class="status-pending">準備中</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- イベント管理 -->
+            <section id="event" class="section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">イベントごとの設定</span>
+                        <h2>イベント管理</h2>
+                        <p>イベントの基本情報や開催設定を管理します。</p>
+                    </div>
+                </div>
+
+                <div class="panel feature-panel">
+                    <h3>イベント基本情報</h3>
+                    <p>イベント名・開催期間・説明・公開状態などを管理します。</p>
+                    <span class="coming-soon">詳細管理機能は今後実装</span>
+                </div>
+
+            </section>
+
+
+            <!-- 出店管理 -->
+            <section id="booths" class="section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">BOOTH MANAGEMENT</span>
+                        <h2>出店管理</h2>
+                        <p>カテゴリーとブースを登録・管理します。</p>
+                    </div>
+                </div>
+
+
+                <!-- カテゴリー管理 -->
+                <div class="panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h3>カテゴリー管理</h3>
+                            <p>イベント内のカテゴリーを登録します。</p>
+                        </div>
+                        <span class="count-label"
+                              th:text="${#lists.size(categories)} + ' CATEGORIES'">
+                        </span>
+                    </div>
+
+                    <form th:action="@{/events/{eventId}/categories(eventId=${eventId})}"
+                          method="post"
+                          class="category-form">
+
+                        <div class="form-group">
+                            <label for="categoryName">カテゴリー名</label>
+                            <input type="text"
+                                   id="categoryName"
+                                   name="categoryName"
+                                   placeholder="例：食品、ゲーム、展示"
+                                   required>
+                        </div>
+
+                        <button type="submit" class="primary-button">
+                            ＋ カテゴリーを追加
+                        </button>
+
+                    </form>
+
+                    <div class="category-list">
+
+                        <div th:if="${#lists.isEmpty(categories)}"
+                             class="empty-state">
+                            まだカテゴリーが登録されていません。
+                        </div>
+
+                        <div th:each="category : ${categories}"
+                             class="category-item">
+
+                            <span class="category-dot"></span>
+
+                            <span th:text="${category.categoryName}">
+                                食品
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ブース登録 -->
+                <div class="panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h3>出店情報登録</h3>
+                            <p>新しい出店情報を登録します。</p>
+                        </div>
+                    </div>
+
+                    <form th:action="@{/events/{eventId}/booths(eventId=${eventId})}"
+                          th:object="${boothsForm}"
+                          method="post"
+                          class="booth-form">
+
+                        <div class="form-group">
+                            <label for="boothName">ブース名</label>
+                            <input type="text"
+                                   id="boothName"
+                                   th:field="*{boothName}"
+                                   placeholder="例：焼きそば屋"
+                                   required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="categoryId">カテゴリー</label>
+
+                            <select id="categoryId"
+                                    th:field="*{categoryId}"
+                                    required>
+
+                                <option value="">カテゴリーを選択</option>
+
+                                <option th:each="category : ${categories}"
+                                        th:value="${category.id}"
+                                        th:text="${category.categoryName}">
+                                </option>
+
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">出店場所</label>
+                            <input type="text"
+                                   id="location"
+                                   th:field="*{location}"
+                                   placeholder="例：体育館前">
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="description">説明</label>
+                            <textarea id="description"
+                                      th:field="*{description}"
+                                      placeholder="ブースの説明を入力してください。">
+                            </textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="primary-button">
+                                ブースを登録する
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- 商品管理 -->
+                <div class="panel feature-panel">
+                    <h3>商品管理</h3>
+                    <p>商品名・価格・在庫数・販売状態などを管理します。</p>
+                    <span class="coming-soon">商品管理機能は今後実装</span>
+                </div>
+
+<!-- ブースリスト -->
+<div class="panel">
+
+    <div class="panel-heading">
+        <div>
+            <h3>登録済み出店情報一覧</h3>
+            <p>このイベントに登録されているブースを確認できます。</p>
+        </div>
+
+        <span class="count-label"
+              th:text="${#lists.size(booths)} + ' BOOTHS'">
+        </span>
+    </div>
+
+    <div th:if="${#lists.isEmpty(booths)}"
+         class="booth-empty">
+        まだ出店情報が登録されていません。
+    </div>
+
+    <div class="booth-list">
+
+        <div th:each="booth : ${booths}"
+             class="booth-list-item">
+
+            <div class="booth-main">
+
+                <div class="booth-icon">▣</div>
+
+                <div class="booth-details">
+
+                    <h4 th:text="${booth.boothName}">
+                    </h4>
+
+                    <p th:text="${booth.location}">
+                    </p>
+
+                    <span class="booth-category">
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+            </section>
+
+
+            <!-- 注文・会計管理 -->
+            <section id="orders" class="section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">ORDER & PAYMENT</span>
+                        <h2>注文・会計管理</h2>
+                        <p>注文から会計までの状況を管理します。</p>
+                    </div>
+                </div>
+
+                <div class="management-grid">
+
+                    <div class="panel feature-panel">
+                        <h3>注文管理</h3>
+                        <p>注文一覧・注文状況・注文履歴</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>決済管理</h3>
+                        <p>会計状況・支払い方法・決済履歴</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>テーブル管理</h3>
+                        <p>テーブル・QRコード・利用状況</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- 財務管理 -->
+            <section id="finance" class="section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">全体の財務管理</span>
+                        <h2>財務管理</h2>
+                        <p>イベント全体のお金の流れを管理します。</p>
+                    </div>
+                </div>
+
+                <div class="finance-grid">
+
+                    <div class="finance-card">
+                        <span>総売上</span>
+                        <strong>¥ --</strong>
+                        <small>各ブースの売上合計</small>
+                    </div>
+
+                    <div class="finance-card">
+                        <span>総入金</span>
+                        <strong>¥ --</strong>
+                        <small>イベントへの入金</small>
+                    </div>
+
+                    <div class="finance-card">
+                        <span>総出金</span>
+                        <strong>¥ --</strong>
+                        <small>イベントからの支払い</small>
+                    </div>
+
+                    <div class="finance-card">
+                        <span>総経費</span>
+                        <strong>¥ --</strong>
+                        <small>運営に必要な費用</small>
+                    </div>
+
+                </div>
+
+                <div class="management-grid">
+
+                    <div class="panel feature-panel">
+                        <h3>入金管理</h3>
+                        <p>入金記録・入金元・入金日を管理します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>出金管理</h3>
+                        <p>支払先・出金額・支払日・担当者を管理します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>経費管理</h3>
+                        <p>材料費・備品費・設備費などを管理します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>収支計算</h3>
+                        <p>イベント全体の収入と支出を集計します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- メンバー管理 -->
+            <section id="members" class="section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">運営メンバー管理</span>
+                        <h2>メンバー管理</h2>
+                        <p>イベント運営に参加するメンバーを管理します。</p>
+                    </div>
+                </div>
+
+                <div class="management-grid">
+
+                    <div class="panel feature-panel">
+                        <h3>Admin管理</h3>
+                        <p>イベント全体を管理する管理者を設定します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>Staff管理</h3>
+                        <p>招待コードによるスタッフ参加を管理します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>権限管理</h3>
+                        <p>メンバーごとの操作権限を設定します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- 分析・レポート -->
+            <section id="reports" class="section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">イベントの詳しい分析</span>
+                        <h2>分析・レポート</h2>
+                        <p>イベントの運営状況を分析します。</p>
+                    </div>
+                </div>
+
+                <div class="management-grid">
+
+                    <div class="panel feature-panel">
+                        <h3>売上レポート</h3>
+                        <p>時間別・ブース別の売上を分析します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>混雑状況</h3>
+                        <p>各ブースの混雑状況を確認します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>外部共有</h3>
+                        <p>Discord・LINEへの情報共有を管理します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- システム管理 -->
+            <section id="system" class="section">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">管理システム</span>
+                        <h2>システム管理</h2>
+                        <p>イベント管理システムの設定を行います。</p>
+                    </div>
+                </div>
+
+                <div class="management-grid">
+
+                    <div class="panel feature-panel">
+                        <h3>QRコード管理</h3>
+                        <p>注文用・会計用QRコードを管理します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>操作履歴</h3>
+                        <p>管理者・スタッフの操作履歴を確認します。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                    <div class="panel feature-panel">
+                        <h3>イベント終了処理</h3>
+                        <p>イベント終了後のデータ整理を行います。</p>
+                        <span class="coming-soon">準備中</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <footer class="footer">
+                Event Manager All Manager
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

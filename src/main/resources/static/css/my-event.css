@@ -1,7 +1,7 @@
 
-/* =========================
+/* =================================
    基本設定
-========================= */
+================================= */
 
 * {
     margin: 0;
@@ -9,30 +9,62 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary: #6258d8;
+    --primary-hover: #5147c4;
+    --navy: #20243a;
+    --background: #f6f7fb;
+    --white: #ffffff;
+    --text: #252940;
+    --sub-text: #85899d;
+    --border: #e8e9f0;
+    --success: #27a879;
+    --danger: #e45d6a;
+}
+
 body {
     font-family:
         "Noto Sans JP",
+        "Hiragino Kaku Gothic ProN",
         "Yu Gothic",
         sans-serif;
 
-    background: #f5f7fb;
-    color: #263247;
+    background: var(--background);
+    color: var(--text);
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* =========================
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+
+/* =================================
    ヘッダー
-========================= */
+================================= */
 
 .header {
-    background: #ffffff;
-    border-bottom: 1px solid #e8ebf1;
+    width: 100%;
+    height: 76px;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .header-inner {
-    max-width: 1200px;
+    max-width: 1250px;
+    height: 100%;
     margin: 0 auto;
-    padding: 18px 24px;
+    padding: 0 35px;
 
     display: flex;
     justify-content: space-between;
@@ -40,106 +72,126 @@ body {
 }
 
 .logo {
-    color: #263247;
     font-size: 21px;
     font-weight: 800;
-    text-decoration: none;
+    color: var(--navy);
+    letter-spacing: -0.5px;
 }
 
-.header-nav {
-    display: flex;
-    align-items: center;
+.logo::before {
+    content: "E";
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    margin-right: 10px;
+    border-radius: 10px;
+    background: var(--primary);
+    color: white;
+    font-size: 19px;
 }
 
-/* =========================
-   ボタン
-========================= */
+
+/* =================================
+   イベント作成ボタン
+================================= */
 
 .create-button {
-    display: inline-block;
-    background: #4263eb;
-    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
 
-    padding: 12px 20px;
+    background: var(--primary);
+    color: white;
+
+    padding: 12px 21px;
     border-radius: 9px;
 
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
 
-    transition: 0.2s;
+    box-shadow: 0 4px 12px rgba(98, 88, 216, 0.18);
+    transition: 0.25s;
 }
 
 .create-button:hover {
-    background: #3451c7;
+    background: var(--primary-hover);
     transform: translateY(-2px);
+    box-shadow: 0 7px 17px rgba(98, 88, 216, 0.25);
 }
 
-/* =========================
-   メイン
-========================= */
+
+/* =================================
+   メインコンテンツ
+================================= */
 
 .main-container {
-    max-width: 1200px;
+    width: 100%;
+    max-width: 1250px;
     margin: 0 auto;
-    padding: 55px 24px;
+    padding: 55px 35px 80px;
+    flex: 1;
 }
 
-/* =========================
+
+/* =================================
    ページタイトル
-========================= */
+================================= */
 
 .page-heading {
     margin-bottom: 45px;
 }
 
-.sub-title {
-    color: #4263eb;
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-}
-
 .page-heading h1 {
-    font-size: 32px;
-    margin-bottom: 12px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.7px;
+    color: var(--navy);
 }
 
 .description {
-    color: #7b8495;
+    margin-top: 12px;
+    color: var(--sub-text);
     font-size: 14px;
+    line-height: 1.8;
 }
 
-/* =========================
-   イベント一覧タイトル
-========================= */
+
+/* =================================
+   イベントセクション
+================================= */
+
+.event-section {
+    width: 100%;
+}
 
 .section-heading {
     display: flex;
     align-items: center;
-    gap: 15px;
+    justify-content: space-between;
     margin-bottom: 22px;
 }
 
 .section-heading h2 {
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--navy);
 }
 
 .event-count {
-    background: #e9edff;
-    color: #4263eb;
-
-    padding: 5px 12px;
+    background: #eeedff;
+    color: var(--primary);
+    padding: 7px 14px;
     border-radius: 20px;
-
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
 }
 
-/* =========================
-   イベントカード
-========================= */
+
+/* =================================
+   イベント一覧
+================================= */
 
 .event-list {
     display: grid;
@@ -147,262 +199,408 @@ body {
     gap: 22px;
 }
 
-.event-card {
-    background: #ffffff;
-    border: 1px solid #e8ebf1;
-    border-radius: 14px;
 
+/* =================================
+   イベントカード
+================================= */
+
+.event-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
     overflow: hidden;
-    transition: 0.2s;
+
+    box-shadow: 0 3px 15px rgba(30, 35, 65, 0.035);
+
+    transition:
+        transform 0.25s,
+        box-shadow 0.25s,
+        border-color 0.25s;
 }
 
 .event-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(30, 50, 90, 0.08);
+    transform: translateY(-5px);
+    border-color: #d8d4ff;
+    box-shadow: 0 12px 28px rgba(30, 35, 65, 0.09);
 }
 
-/* カード上部 */
+
+/* =================================
+   カード上部
+================================= */
 
 .card-top {
-    padding: 17px 22px;
-    border-bottom: 1px solid #edf0f5;
+    min-height: 65px;
+    padding: 15px 20px;
 
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px;
+
+    background: #fcfcff;
+    border-bottom: 1px solid var(--border);
 }
 
+
+/* イベントステータス */
+
 .event-status {
-    font-size: 11px;
-    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
 
     padding: 6px 12px;
     border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
 }
 
-.published {
-    color: #16834b;
-    background: #e4f7ec;
+.event-status.published {
+    background: #e6f7ef;
+    color: #23966b;
 }
 
-.other-status {
-    color: #657087;
-    background: #eef1f6;
+.event-status.other-status {
+    background: #f0f1f5;
+    color: #777c8d;
 }
+
+
+/* ADMINラベル */
 
 .admin-label {
-    color: #4263eb;
-    font-size: 11px;
+    background: #eeedff;
+    color: var(--primary);
+
+    padding: 6px 10px;
+    border-radius: 20px;
+
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: 1px;
 }
 
 
-/* =========================
-   イベント削除フォーム
-========================= */
+/* =================================
+   削除ボタン
+================================= */
 
 .delete-form {
-    display: inline-flex;
-    align-items: center;
-    margin: 0;
+    margin-left: auto;
 }
 
 .delete-button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    background: white;
+    border: 1px solid #f0dadd;
+    color: var(--danger);
 
-    background: #fff1f1;
-    color: #dc4545;
-    border: 1px solid #ffd5d5;
+    padding: 7px 13px;
+    border-radius: 7px;
 
-    padding: 8px 15px;
-    border-radius: 8px;
-
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    font-family: inherit;
 
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: 0.2s;
 }
 
 .delete-button:hover {
-    background: #dc4545;
-    color: #ffffff;
-    border-color: #dc4545;
-
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(220, 69, 69, 0.18);
-}
-
-.delete-button:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
-
-.delete-button:focus-visible {
-    outline: 3px solid rgba(220, 69, 69, 0.25);
-    outline-offset: 3px;
-}
-
-/* カード上部の配置 */
-.card-top {
-    padding: 17px 22px;
-    border-bottom: 1px solid #edf0f5;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+    background: #fff0f1;
+    border-color: var(--danger);
 }
 
 
-/* カード内容 */
+/* =================================
+   カード内容
+================================= */
 
 .card-content {
-    padding: 23px;
+    padding: 25px 22px;
 }
 
 .school-name {
-    color: #8791a3;
+    color: var(--primary);
     font-size: 12px;
-    margin-bottom: 9px;
-}
-
-.event-description {
-    color: #8791a3;
-    font-size: 10px;
-    margin-bottom: 9px;
-}
-
-.event-name {
-    color: #8791a3;
-    font-size: 10px;
-    margin-bottom: 9px;
+    font-weight: 700;
+    margin-bottom: 10px;
 }
 
 .card-content h3 {
-    font-size: 21px;
+    color: var(--navy);
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.5;
     margin-bottom: 12px;
-    overflow-wrap: anywhere;
 }
 
 .event-description {
-    color: #7b8495;
-    font-size: 13px;
-    line-height: 1.8;
+    color: var(--sub-text);
+    font-size: 12px;
+    line-height: 1.9;
+    min-height: 46px;
 
-    margin-bottom: 25px;
-    overflow-wrap: anywhere;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
-/* 開催日時 */
+
+/* =================================
+   開催日時
+================================= */
 
 .event-date {
-    background: #f7f8fc;
-    border-radius: 10px;
-    padding: 15px;
-
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 12px;
+
+    margin-top: 23px;
+    padding: 17px;
+
+    background: #f8f8fc;
+    border-radius: 9px;
 }
 
 .date-item {
     display: flex;
-    justify-content: space-between;
-    gap: 10px;
+    flex-direction: column;
+    gap: 7px;
 
-    font-size: 13px;
+    color: var(--text);
+    font-size: 12px;
+    font-weight: 700;
 }
 
 .date-label {
-    color: #8791a3;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    color: var(--sub-text);
+    font-size: 10px;
+    font-weight: 600;
 }
 
-/* =========================
-   イベントなし
-========================= */
+
+/* =================================
+   出店作成エリア
+================================= */
+
+.create-booths {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 20px;
+    padding: 16px 18px;
+
+    background: linear-gradient(110deg, #f0efff, #f8f7ff);
+    border: 1px solid #e8e5ff;
+    border-radius: 10px;
+
+    transition: 0.2s;
+}
+
+.create-booths:hover {
+    background: #e9e7ff;
+    border-color: #d4ceff;
+}
+
+.create-booths h5 {
+    color: #504a9e;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.create-booths a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--primary);
+    color: white;
+
+    padding: 8px 15px;
+    border-radius: 7px;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    transition: 0.2s;
+}
+
+.create-booths a:hover {
+    background: var(--primary-hover);
+    transform: translateX(3px);
+}
+
+
+/* =================================
+   イベントがない場合
+================================= */
 
 .empty-state {
-    background: #ffffff;
-    border: 1px solid #e8ebf1;
-    border-radius: 14px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 15px;
 
-    padding: 65px 20px;
+    padding: 75px 20px;
     text-align: center;
+
+    box-shadow: 0 3px 15px rgba(30, 35, 65, 0.035);
 }
 
 .empty-icon {
-    font-size: 42px;
+    font-size: 43px;
     margin-bottom: 20px;
 }
 
 .empty-state h3 {
+    color: var(--navy);
     font-size: 19px;
-    margin-bottom: 12px;
+    font-weight: 800;
 }
 
 .empty-state p {
-    color: #8791a3;
+    color: var(--sub-text);
     font-size: 13px;
-    margin-bottom: 25px;
+    margin: 13px 0 25px;
+    line-height: 1.8;
 }
 
-/* =========================
+
+/* =================================
    フッター
-========================= */
+================================= */
 
 .footer {
-    padding: 25px;
+    width: 100%;
+    background: white;
+    border-top: 1px solid var(--border);
+
+    padding: 22px;
     text-align: center;
 
-    color: #a0a8b6;
-    font-size: 12px;
+    color: #a1a4b2;
+    font-size: 11px;
 }
 
-/* =========================
-   スマホ対応
-========================= */
 
-@media (max-width: 700px) {
+/* =================================
+   タブレット対応
+================================= */
+
+@media (max-width: 900px) {
+
+    .event-list {
+        grid-template-columns: 1fr;
+    }
+
+    .main-container {
+        padding: 40px 25px 65px;
+    }
+
+}
+
+
+/* =================================
+   スマートフォン対応
+================================= */
+
+@media (max-width: 550px) {
+
+    .header {
+        height: 65px;
+    }
 
     .header-inner {
-        padding: 15px 18px;
+        padding: 0 16px;
     }
 
     .logo {
         font-size: 17px;
     }
 
-    .create-button {
-        padding: 10px 13px;
-        font-size: 12px;
+    .logo::before {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        margin-right: 7px;
+    }
+
+    .header .create-button {
+        padding: 10px 12px;
+        font-size: 11px;
     }
 
     .main-container {
-        padding: 35px 18px;
+        padding: 35px 15px 50px;
     }
 
     .page-heading {
-        margin-bottom: 35px;
+        margin-bottom: 32px;
     }
 
     .page-heading h1 {
-        font-size: 25px;
+        font-size: 24px;
+    }
+
+    .description {
+        font-size: 12px;
+    }
+
+    .section-heading h2 {
+        font-size: 16px;
     }
 
     .event-list {
-        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .card-top {
+        padding: 13px;
+        gap: 6px;
+    }
+
+    .admin-label {
+        font-size: 9px;
+        padding: 6px 8px;
+    }
+
+    .delete-button {
+        padding: 6px 9px;
+        font-size: 10px;
+    }
+
+    .card-content {
+        padding: 20px 16px;
     }
 
     .card-content h3 {
-        font-size: 19px;
+        font-size: 18px;
     }
+
+    .event-date {
+        gap: 8px;
+        padding: 13px;
+    }
+
+    .date-item {
+        font-size: 10px;
+    }
+
+    .create-booths {
+        padding: 13px;
+    }
+
+    .create-booths h5 {
+        font-size: 10px;
+    }
+
+    .create-booths a {
+        padding: 8px 11px;
+        font-size: 10px;
+    }
+
+    .empty-state {
+        padding: 55px 15px;
+    }
+
 }

@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>あなたには権限がありません</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .error-container {
+            text-align: center;
+            background: white;
+            padding: 50px;
+            border-radius: 16px;
+        }
+
+        h1 {
+            font-size: 80px;
+            color: #e57373;
+            margin: 0;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="error-container">
+    <h1>:< イベント全体マネージャーを閲覧する権限がないようです :</h1>
+    <h2>Not Authority</h2>
+    <p>あなたにはイベント管理者（ADMIN）権限がないようです <br>
+    :( 攻撃的アクセス、不正アクセスは今サービスでは利用規約にて強く禁じられています :(</p>
+
+</div>
+
+</body>
+</html>
