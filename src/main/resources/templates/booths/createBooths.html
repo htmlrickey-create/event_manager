@@ -114,10 +114,16 @@
 
         <div class="content">
 
-            <!-- メッセージ -->
+            <!-- 成功メッセージ -->
             <div class="message"
                  th:if="${message}"
                  th:text="${message}">
+            </div>
+
+            <!-- エラーメッセージ -->
+            <div class="message error-message"
+                 th:if="${error}"
+                 th:text="${error}">
             </div>
 
 
@@ -283,6 +289,7 @@
                             <h3>カテゴリー管理</h3>
                             <p>イベント内のカテゴリーを登録します。</p>
                         </div>
+
                         <span class="count-label"
                               th:text="${#lists.size(categories)} + ' CATEGORIES'">
                         </span>
@@ -294,6 +301,7 @@
 
                         <div class="form-group">
                             <label for="categoryName">カテゴリー名</label>
+
                             <input type="text"
                                    id="categoryName"
                                    name="categoryName"
@@ -347,6 +355,7 @@
 
                         <div class="form-group">
                             <label for="boothName">ブース名</label>
+
                             <input type="text"
                                    id="boothName"
                                    th:field="*{boothName}"
@@ -373,6 +382,7 @@
 
                         <div class="form-group">
                             <label for="location">出店場所</label>
+
                             <input type="text"
                                    id="location"
                                    th:field="*{location}"
@@ -381,6 +391,7 @@
 
                         <div class="form-group full-width">
                             <label for="description">説明</label>
+
                             <textarea id="description"
                                       th:field="*{description}"
                                       placeholder="ブースの説明を入力してください。">
@@ -405,54 +416,52 @@
                     <span class="coming-soon">商品管理機能は今後実装</span>
                 </div>
 
-<!-- ブースリスト -->
-<div class="panel">
 
-    <div class="panel-heading">
-        <div>
-            <h3>登録済み出店情報一覧</h3>
-            <p>このイベントに登録されているブースを確認できます。</p>
-        </div>
+                <!-- ブースリスト -->
+                <div class="panel">
 
-        <span class="count-label"
-              th:text="${#lists.size(booths)} + ' BOOTHS'">
-        </span>
-    </div>
+                    <div class="panel-heading">
+                        <div>
+                            <h3>登録済み出店情報一覧</h3>
+                            <p>このイベントに登録されているブースを確認できます。</p>
+                        </div>
 
-    <div th:if="${#lists.isEmpty(booths)}"
-         class="booth-empty">
-        まだ出店情報が登録されていません。
-    </div>
+                        <span class="count-label"
+                              th:text="${#lists.size(booths)} + ' BOOTHS'">
+                        </span>
+                    </div>
 
-    <div class="booth-list">
+                    <div th:if="${#lists.isEmpty(booths)}"
+                         class="booth-empty">
+                        まだ出店情報が登録されていません。
+                    </div>
 
-        <div th:each="booth : ${booths}"
-             class="booth-list-item">
+                    <div class="booth-list">
 
-            <div class="booth-main">
+                        <div th:each="booth : ${booths}"
+                             class="booth-list-item">
 
-                <div class="booth-icon">▣</div>
+                            <div class="booth-main">
 
-                <div class="booth-details">
+                                <div class="booth-icon">▣</div>
 
-                    <h4 th:text="${booth.boothName}">
-                    </h4>
+                                <div class="booth-details">
 
-                    <p th:text="${booth.location}">
-                    </p>
+                                    <h4 th:text="${booth.boothName}"></h4>
 
-                    <span class="booth-category">
-                    </span>
+                                    <p th:text="${booth.location}"></p>
+
+                                    <span class="booth-category"></span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
 
             </section>
 
@@ -576,23 +585,117 @@
 
                 <div class="management-grid">
 
+                    <!-- Admin管理 -->
                     <div class="panel feature-panel">
                         <h3>Admin管理</h3>
                         <p>イベント全体を管理する管理者を設定します。</p>
                         <span class="coming-soon">準備中</span>
                     </div>
 
-                    <div class="panel feature-panel">
-                        <h3>Staff管理</h3>
-                        <p>招待コードによるスタッフ参加を管理します。</p>
-                        <span class="coming-soon">準備中</span>
+                    <!-- Staffアカウント作成 -->
+                    <div class="panel">
+
+                        <div class="panel-heading">
+                            <div>
+                                <h3>Staffアカウント作成</h3>
+                                <p>イベント運営スタッフのアカウントを一括生成します。</p>
+                            </div>
+                        </div>
+
+                        <form
+                            th:action="@{/events/{eventId}/staff/create(eventId=${eventId})}"
+                            method="post"
+                            class="staff-form">
+
+                            <div class="form-group">
+
+                                <label for="count">
+                                    生成するアカウント数
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="count"
+                                    name="count"
+                                    min="1"
+                                    max="50"
+                                    value="1"
+                                    required>
+
+                                <small>
+                                    一度に生成できるアカウントは1～50件です。
+                                </small>
+
+                            </div>
+
+                            <button type="submit" class="primary-button">
+                                ＋ Staffアカウントを生成
+                            </button>
+
+                        </form>
+
                     </div>
 
+                    <!-- 権限管理 -->
                     <div class="panel feature-panel">
                         <h3>権限管理</h3>
                         <p>メンバーごとの操作権限を設定します。</p>
                         <span class="coming-soon">準備中</span>
                     </div>
+
+                </div>
+
+
+                <!-- 生成されたアカウント情報 -->
+                <div class="panel"
+                     th:if="${staffCredentials != null and !#lists.isEmpty(staffCredentials)}">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h3>生成されたStaffアカウント</h3>
+                            <p>
+                                以下のログイン情報を各スタッフに共有してください。
+                            </p>
+                        </div>
+
+                        <span class="count-label"
+                              th:text="${#lists.size(staffCredentials)} + ' ACCOUNTS'">
+                        </span>
+                    </div>
+
+                    <div class="staff-credential-list">
+
+                        <div class="staff-credential-item"
+                             th:each="staff, stat : ${staffCredentials}">
+
+                            <h4 th:text="'Staff #' + (${stat.index} + 1)">
+                                Staff #1
+                            </h4>
+
+                            <div class="form-group">
+                                <label>ログイン用メールアドレス</label>
+
+                                <input type="text"
+                                       readonly
+                                       th:value="${staff.email}">
+                            </div>
+
+                            <div class="form-group">
+                                <label>初期パスワード</label>
+
+                                <input type="text"
+                                       readonly
+                                       th:value="${staff.password}">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <p class="staff-warning">
+                        ※ この情報は大切に保管してください。
+                        ページを離れたり再読み込みしたりすると再表示されません。
+                    </p>
 
                 </div>
 
@@ -670,9 +773,6 @@
 
             </section>
 
-            <footer class="footer">
-                Event Manager All Manager
-            </footer>
 
         </div>
 

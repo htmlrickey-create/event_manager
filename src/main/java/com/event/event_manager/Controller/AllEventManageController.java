@@ -1,6 +1,8 @@
 
 package com.event.event_manager.Controller;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import com.event.event_manager.Repository.UsersRepository;
 import com.event.event_manager.Service.BoothServer;
 import com.event.event_manager.Service.CategoryADMINService;
 import com.event.event_manager.Service.EventPermissionService;
+import com.event.event_manager.Service.StaffAcountCreateService;
+import com.event.event_manager.Service.StaffCredential;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,9 +33,10 @@ public class AllEventManageController {
     private final CategoryADMINService categoryADMINService;
     private final EventPermissionService permissionService;
     private final UsersRepository repository;
+    private final StaffAcountCreateService staffAcountCreateService;
 
 
-    // All Manager画面表示
+   
     @GetMapping("/events/{eventId}/manage")
     public String manage(
             @PathVariable Long eventId,
@@ -58,7 +63,7 @@ public class AllEventManageController {
     }
 
 
-    // カテゴリー登録
+
     @PostMapping("/events/{eventId}/categories")
     public String categoryCreate(
             @PathVariable Long eventId,
@@ -81,7 +86,7 @@ public class AllEventManageController {
     }
 
 
-    // ブース登録
+   
     @PostMapping("/events/{eventId}/booths")
     public String boothCreate(
             @PathVariable Long eventId,
@@ -96,6 +101,26 @@ public class AllEventManageController {
         );
 
         return "redirect:/events/" + eventId + "/manage";
+    }
+
+    @PostMapping ("/events/{eventId}/staff/create")
+    public String staffCreate(@PathVariable Long eventId, @RequestParam int count, Authentication authentication, RedirectAttributes redirectAttributes){
+        if(authentication == null|| !permissionService.isAdmin(authentication.getName(), eventId)){
+            return "redirect:/notEvent";
+        }
+
+        try{
+
+            String loginEmail = authentication.getName();
+
+            List<StaffCredential> credentials = staffAcountCreateService.createStaff(eventId, count, loginEmail);
+
+            redirectAttributes.addFlashAttribute("message", "スタッフアカウントを生成しました");
+            redirectAttributes.addFlashAttribute("staffCredentials", credentials);
+        }catch (IllegalArgumentException e){
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
+        return "redirect:/events/"+ eventId + "/manage";
     }
 
 }

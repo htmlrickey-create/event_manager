@@ -31,14 +31,18 @@ public class EventMembers {
     @JoinColumn (name = "event_id", nullable = false)
     private Events event;
 
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn (name = "booth_id")
+    private Booths booth;
+
     @Column (name = "role", nullable = false, length = 30)
     private String role;
 
     @Column (name = "joined_at", nullable = false, updatable = false)
-    private OffsetDateTime joined_At;
+    private OffsetDateTime joinedAt;
 
     @PrePersist 
     protected void onCreate(){
-        this.joined_At = OffsetDateTime.now();
+        this.joinedAt = OffsetDateTime.now();
     }
 }

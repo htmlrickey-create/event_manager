@@ -687,6 +687,66 @@ textarea {
 }
 
 
+/* Staffアカウント管理 */
+
+.staff-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.staff-form input {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    border: 1px solid #dce0eb;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+.staff-credential-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.staff-credential-item {
+    padding: 20px;
+    background: #f7f8fc;
+    border: 1px solid #e2e5ef;
+    border-radius: 12px;
+}
+
+.staff-credential-item h4 {
+    margin-bottom: 16px;
+}
+
+.staff-credential-item .form-group {
+    margin-bottom: 14px;
+}
+
+.staff-credential-item input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #dce0eb;
+    border-radius: 7px;
+    background: white;
+}
+
+.staff-warning {
+    margin-top: 20px;
+    color: #b7791f;
+    font-size: 13px;
+}
+
+.error-message {
+    color: #b42318;
+    background: #fff0ef;
+    padding: 14px;
+    border-radius: 8px;
+}
+
+
 /* Finance */
 
 .finance-grid {
