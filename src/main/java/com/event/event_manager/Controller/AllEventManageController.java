@@ -42,9 +42,21 @@ public class AllEventManageController {
             @PathVariable Long eventId,
             Model model, Authentication authentication) {
 
-        if(authentication == null || !permissionService.isAdmin(authentication.getName(), eventId)){
-            return "redirect:/notEvent";
-        }
+                if (authentication == null) {
+                    return "redirect:/login";                    
+                }
+                String email = authentication.getName();
+
+                if(permissionService.isStaff(email, eventId)){
+                    return "redirect:/events/"+ eventId + "/staff/manage";
+                }
+
+                if (!permissionService.isAdmin(email, eventId)) {
+                    return  "redirect:/notEvent";
+                    
+                }
+
+            
         Users user = repository.findByEmail(authentication.getName()).orElseThrow(()-> new IllegalStateException("ユーザーが見つかりません。"));
 
         model.addAttribute("eventId", eventId);
@@ -104,7 +116,7 @@ public class AllEventManageController {
     }
 
     @PostMapping ("/events/{eventId}/staff/create")
-    public String staffCreate(@PathVariable Long eventId, @RequestParam int count, Authentication authentication, RedirectAttributes redirectAttributes){
+    public String staffCreate(@PathVariable Long eventId, @RequestParam int count, @RequestParam Long boothId, Authentication authentication, RedirectAttributes redirectAttributes){
         if(authentication == null|| !permissionService.isAdmin(authentication.getName(), eventId)){
             return "redirect:/notEvent";
         }
@@ -113,7 +125,7 @@ public class AllEventManageController {
 
             String loginEmail = authentication.getName();
 
-            List<StaffCredential> credentials = staffAcountCreateService.createStaff(eventId, count, loginEmail);
+            List<StaffCredential> credentials = staffAcountCreateService.createStaff(eventId,boothId, count, loginEmail);
 
             redirectAttributes.addFlashAttribute("message", "スタッフアカウントを生成しました");
             redirectAttributes.addFlashAttribute("staffCredentials", credentials);

@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #5267d8;
+    --primary-dark: #4053bd;
+    --background: #f5f6fa;
+    --surface: #ffffff;
+    --text: #252a3a;
+    --sub-text: #858b9c;
+    --border: #e9ebf2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* ヘッダー */
+.header {
+    width: 100%;
+    height: 68px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    max-width: 1100px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--primary);
+}
+
+.header-label {
+    background: #eef0ff;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 7px 13px;
+    border-radius: 20px;
+}
+
+/* メイン */
+.main-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 65px 24px 80px;
+}
+
+.page-heading {
+    margin-bottom: 38px;
+}
+
+.eyebrow {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.page-heading h1 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.page-heading p {
+    color: var(--sub-text);
+    font-size: 14px;
+}
+
+/* ブース一覧 */
+.booth-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.booth-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: 0 4px 16px rgba(30, 40, 80, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.booth-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(30, 40, 80, 0.08);
+}
+
+.event-info {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.event-label,
+.booth-label {
+    display: block;
+    color: var(--sub-text);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.event-info h2 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.booth-info {
+    padding: 22px 0;
+}
+
+.booth-name {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+/* 管理ボタン */
+.manage-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 18px;
+    background: var(--primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background 0.2s;
+}
+
+.manage-button:hover {
+    background: var(--primary-dark);
+}
+
+.arrow {
+    font-size: 20px;
+    transition: transform 0.2s;
+}
+
+.manage-button:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* 担当ブースなし */
+.empty-message {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #eef0ff;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.empty-message h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.empty-message p {
+    color: var(--sub-text);
+    font-size: 13px;
+}
+
+/* フッター */
+.footer {
+    padding: 24px;
+    text-align: center;
+    color: var(--sub-text);
+    font-size: 12px;
+}
+
+/* スマホ */
+@media (max-width: 650px) {
+    .main-container {
+        padding: 42px 18px 60px;
+    }
+
+    .page-heading h1 {
+        font-size: 25px;
+    }
+
+    .booth-list {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .booth-card {
+        padding: 22px;
+    }
+}

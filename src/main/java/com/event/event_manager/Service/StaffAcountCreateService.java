@@ -8,9 +8,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.event.event_manager.Entity.AcountType;
+import com.event.event_manager.Entity.Booths;
 import com.event.event_manager.Entity.EventMembers;
 import com.event.event_manager.Entity.Events;
 import com.event.event_manager.Entity.Users;
+import com.event.event_manager.Repository.BoothsRepository;
 import com.event.event_manager.Repository.EventMemberRepository;
 import com.event.event_manager.Repository.EventRepository;
 import com.event.event_manager.Repository.UsersRepository;
@@ -27,7 +29,7 @@ public class StaffAcountCreateService {
     private final EventRepository eventRepository;
     private final EventMemberRepository eventMemberRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final BoothsRepository boothsRepository;
     private final SecureRandom random = new SecureRandom();
 
     private String generatePassword(){
@@ -55,13 +57,16 @@ public class StaffAcountCreateService {
     }    
 
     @Transactional 
-    public List<StaffCredential> createStaff(Long eventId, int count, String loginEmail){
+    public List<StaffCredential> createStaff(Long eventId, Long boothsId, int count, String loginEmail){
         
         if(count < 1|| count > 50){
             throw new IllegalArgumentException("Staffアカウントの生成数は1~50にしてください。");
         }
 
         Events event = eventRepository.findById(eventId).orElseThrow(()-> new IllegalArgumentException("イベントが見つかりません。")) ;
+
+        Booths booth = boothsRepository.findByIdAndEventId(boothsId, eventId).orElseThrow(()-> new IllegalArgumentException("指定された出店が見つかりません"));
+
 
         checkAdmin(eventId, loginEmail);
 
@@ -87,7 +92,7 @@ public class StaffAcountCreateService {
             member.setUser(user);
             member.setEvent(event);
             member.setRole("STAFF");
-            member.setBooth(null);
+            member.setBooth(booth);
 
             eventMemberRepository.save(member);
 

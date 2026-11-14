@@ -626,6 +626,21 @@
                                     一度に生成できるアカウントは1～50件です。
                                 </small>
 
+                            <div class="form-group">
+                                <label for="boothId">担当店舗</label>
+
+                                <select id="boothId" name="boothId" required>
+                                    <option value="" disabled selected>
+                                        作成するStaffアカウントの担当店舗を選択してください。
+                                    </option>
+                                    <option th:each="booth : ${booths}" th:value="${booth.id}" th:text="${booth.boothName}">
+                                    </option>
+                                </select>
+                                <small>生成するStaffアカウント全てが指定された店舗の担当Staffになります</small>
+
+                                
+                            </div>
+
                             </div>
 
                             <button type="submit" class="primary-button">

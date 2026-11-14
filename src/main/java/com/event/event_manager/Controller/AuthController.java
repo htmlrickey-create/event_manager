@@ -1,5 +1,7 @@
 package com.event.event_manager.Controller;
 
+import java.util.List;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.event.event_manager.Entity.EventMembers;
 import com.event.event_manager.Form.LoginForm;
 import com.event.event_manager.Form.RegisterForm;
+import com.event.event_manager.Repository.EventMemberRepository;
 import com.event.event_manager.Service.UsersService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +33,8 @@ public class AuthController {
     private final UsersService service;
 
     private final PasswordEncoder passwordEncoder;
+
+    private final EventMemberRepository repository;
 
     @GetMapping ("/login")
     public String view(Model model, LoginForm form){
@@ -63,6 +69,13 @@ public class AuthController {
             SecurityContextHolder.setContext(context);
 
             new HttpSessionSecurityContextRepository().saveContext(context,request,response);
+
+            List<EventMembers> memberships = repository.findByUser_Email(form.getEmail());
+
+            boolean isStaff = memberships.stream().anyMatch(member -> "STAFF".equals(member.getRole()));
+            if(isStaff){
+                return "redirect:/staff/eventMG";
+            }
 
             return "redirect:/create_event";
         }else{

@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary: #5267d8;
+    --primary-dark: #4053bd;
+    --background: #f5f6fa;
+    --surface: #ffffff;
+    --text: #252a3a;
+    --sub-text: #858b9c;
+    --border: #e9ebf2;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* ヘッダー */
+header {
+    height: 68px;
+    padding: 0 24px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header h1 {
+    color: var(--primary);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+header span {
+    background: #eef0ff;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 7px 13px;
+    border-radius: 20px;
+}
+
+/* メイン */
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 45px 24px 70px;
+}
+
+/* ブース情報 */
+.booth-header {
+    background: var(--surface);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 16px rgba(30, 40, 80, 0.04);
+    margin-bottom: 42px;
+}
+
+.event-name {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.booth-header h1 {
+    font-size: 30px;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+.booth-description {
+    color: var(--sub-text);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.booth-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 13px;
+    background: #f1f2f8;
+    border-radius: 8px;
+    color: #626a80;
+    font-size: 13px;
+}
+
+/* セクションタイトル */
+.menu-section h2 {
+    font-size: 21px;
+    font-weight: 800;
+    margin-bottom: 22px;
+}
+
+/* 管理メニュー */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.menu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px;
+    box-shadow: 0 4px 16px rgba(30, 40, 80, 0.03);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.menu-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(30, 40, 80, 0.07);
+}
+
+.menu-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.menu-card p {
+    color: var(--sub-text);
+    font-size: 13px;
+    line-height: 1.8;
+    min-height: 46px;
+    margin-bottom: 20px;
+}
+
+/* メニューボタン */
+.menu-card a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #eef0ff;
+    color: var(--primary);
+    border-radius: 9px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    transition: background 0.2s, color 0.2s;
+}
+
+.menu-card a:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.menu-card a span {
+    font-size: 18px;
+}
+
+/* 戻るリンク */
+.back-link {
+    display: inline-block;
+    margin-top: 35px;
+    color: var(--sub-text);
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--primary);
+}
+
+/* スマホ */
+@media (max-width: 650px) {
+    header {
+        padding: 0 18px;
+    }
+
+    main {
+        padding: 30px 18px 50px;
+    }
+
+    .booth-header {
+        padding: 24px;
+        margin-bottom: 32px;
+    }
+
+    .booth-header h1 {
+        font-size: 24px;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .menu-card {
+        padding: 22px;
+    }
+}

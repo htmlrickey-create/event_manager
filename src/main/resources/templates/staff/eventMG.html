@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>担当ブース選択 | Event Manager</title>
+
+    <link rel="stylesheet" th:href="@{/css/staff-eventMG.css}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-inner">
+            <div class="logo">STAFF ONLY EventManager</div>
+            <span class="header-label">STAFF</span>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <section class="page-heading">
+            <span class="eyebrow">STAFF専用ダッシュボード</span>
+            <h1>担当ブース選択</h1>
+            <p>管理する担当ブースを選択してください。</p>
+        </section>
+
+        <div class="empty-message" th:if="${#lists.isEmpty(memberships)}">
+            <div class="empty-icon">!</div>
+            <h2>担当ブースがありません</h2>
+            <p>現在、担当ブースが登録されていません。</p>
+        </div>
+
+        <section class="booth-list" th:unless="${#lists.isEmpty(memberships)}">
+
+            <div class="booth-card" th:each="membership : ${memberships}">
+
+                <div class="event-info">
+                    <span class="event-label">イベント名</span>
+                    <h2 th:text="${membership.event.eventName}">イベント名</h2>
+                </div>
+
+                <div class="booth-info">
+                    <span class="booth-label">担当ブース</span>
+                    <p class="booth-name" th:text="${membership.booth.boothName}">
+                        ブース名
+                    </p>
+                </div>
+
+                <a class="manage-button"
+                   th:href="@{/staff/booths/{boothId}/manage(boothId=${membership.booth.id})}">
+                    このブースを管理する
+                    <span class="arrow">→</span>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>© Event Manager</p>
+    </footer>
+
+</body>
+</html>
