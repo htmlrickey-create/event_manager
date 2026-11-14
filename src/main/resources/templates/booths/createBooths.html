@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Manager | Event Manager</title>
 
-    <link rel="stylesheet"
-          th:href="@{/css/booths/createBooths.css}">
+    <link rel="stylesheet" th:href="@{/css/booths/createBooths.css}">
 </head>
 
 <body>
@@ -154,8 +153,8 @@
 
                     <div class="overview-card">
                         <span>登録ブース数</span>
-                        <strong>-- 店</strong>
-                        <small>ブースデータ未接続</small>
+                        <strong th:text="${countBooths} + ' 店'">0</strong>
+                        <small>登録ブースデータ接続良好✅</small>
                     </div>
 
                     <div class="overview-card">
@@ -427,7 +426,7 @@
                         </div>
 
                         <span class="count-label"
-                              th:text="${#lists.size(booths)} + ' BOOTHS'">
+                              th:text="${#lists.size(booths)} + ' 店舗'">
                         </span>
                     </div>
 
@@ -451,7 +450,11 @@
 
                                     <p th:text="${booth.location}"></p>
 
-                                    <span class="booth-category"></span>
+                                    <div class="booth-staff-count">
+                                        <span class="staff-count-label">所属スタッフ</span>
+                                        <strong th:text="${staffCount[booth.id]}">0</strong>
+                                        <span>人</span>
+                                    </div>
 
                                 </div>
 
@@ -592,6 +595,7 @@
                         <span class="coming-soon">準備中</span>
                     </div>
 
+
                     <!-- Staffアカウント作成 -->
                     <div class="panel">
 
@@ -602,10 +606,9 @@
                             </div>
                         </div>
 
-                        <form
-                            th:action="@{/events/{eventId}/staff/create(eventId=${eventId})}"
-                            method="post"
-                            class="staff-form">
+                        <form th:action="@{/events/{eventId}/staff/create(eventId=${eventId})}"
+                              method="post"
+                              class="staff-form">
 
                             <div class="form-group">
 
@@ -613,33 +616,42 @@
                                     生成するアカウント数
                                 </label>
 
-                                <input
-                                    type="number"
-                                    id="count"
-                                    name="count"
-                                    min="1"
-                                    max="50"
-                                    value="1"
-                                    required>
+                                <input type="number"
+                                       id="count"
+                                       name="count"
+                                       min="1"
+                                       max="50"
+                                       value="1"
+                                       required>
 
                                 <small>
                                     一度に生成できるアカウントは1～50件です。
                                 </small>
 
+                            </div>
+
                             <div class="form-group">
+
                                 <label for="boothId">担当店舗</label>
 
-                                <select id="boothId" name="boothId" required>
+                                <select id="boothId"
+                                        name="boothId"
+                                        required>
+
                                     <option value="" disabled selected>
                                         作成するStaffアカウントの担当店舗を選択してください。
                                     </option>
-                                    <option th:each="booth : ${booths}" th:value="${booth.id}" th:text="${booth.boothName}">
-                                    </option>
-                                </select>
-                                <small>生成するStaffアカウント全てが指定された店舗の担当Staffになります</small>
 
-                                
-                            </div>
+                                    <option th:each="booth : ${booths}"
+                                            th:value="${booth.id}"
+                                            th:text="${booth.boothName}">
+                                    </option>
+
+                                </select>
+
+                                <small>
+                                    生成するStaffアカウント全てが指定された店舗の担当Staffになります。
+                                </small>
 
                             </div>
 
@@ -650,6 +662,7 @@
                         </form>
 
                     </div>
+
 
                     <!-- 権限管理 -->
                     <div class="panel feature-panel">
@@ -687,20 +700,49 @@
                                 Staff #1
                             </h4>
 
+                            <!-- メールアドレス -->
                             <div class="form-group">
+
                                 <label>ログイン用メールアドレス</label>
 
-                                <input type="text"
-                                       readonly
-                                       th:value="${staff.email}">
+                                <div class="credential-row">
+
+                                    <input type="text"
+                                           readonly
+                                           th:value="${staff.email}">
+
+                                    <button type="button"
+                                            class="copy-button"
+                                            th:attr="data-copy=${staff.email}"
+                                            onclick="copyCredential(this)">
+                                        コピー
+                                    </button>
+
+                                </div>
+
                             </div>
 
+
+                            <!-- 初期パスワード -->
                             <div class="form-group">
+
                                 <label>初期パスワード</label>
 
-                                <input type="text"
-                                       readonly
-                                       th:value="${staff.password}">
+                                <div class="credential-row">
+
+                                    <input type="text"
+                                           readonly
+                                           th:value="${staff.password}">
+
+                                    <button type="button"
+                                            class="copy-button"
+                                            th:attr="data-copy=${staff.password}"
+                                            onclick="copyCredential(this)">
+                                        コピー
+                                    </button>
+
+                                </div>
+
                             </div>
 
                         </div>
@@ -788,12 +830,42 @@
 
             </section>
 
-
         </div>
 
     </main>
 
 </div>
+
+
+<!-- コピー機能 -->
+<script>
+    function copyCredential(button) {
+
+        // ボタンに設定されたコピー対象の文字列を取得
+        const value = button.dataset.copy;
+
+        // クリップボードにコピー
+        navigator.clipboard.writeText(value)
+            .then(() => {
+
+                // コピー成功時
+                button.textContent = "コピー完了";
+
+                // 1.5秒後にボタンの表示を戻す
+                setTimeout(() => {
+                    button.textContent = "コピー";
+                }, 1500);
+
+            })
+            .catch(() => {
+
+                // コピー失敗時
+                alert("コピーに失敗しました。HTTPS接続か確認してください。");
+
+            });
+
+    }
+</script>
 
 </body>
 </html>

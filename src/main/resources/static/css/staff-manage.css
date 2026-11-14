@@ -50,6 +50,36 @@ header span {
     border-radius: 20px;
 }
 
+
+/* 所属Staff人数 */
+
+.staff-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: 12px 0;
+    padding: 9px 16px;
+
+    background: #eef2ff;
+    border: 1px solid #dbe3ff;
+    border-radius: 8px;
+
+    color: #4053bd;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.staff-count strong {
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.staff-count span:last-child {
+    font-size: 13px;
+}
+
+
 /* メイン */
 main {
     max-width: 1100px;

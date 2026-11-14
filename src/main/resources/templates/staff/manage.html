@@ -18,8 +18,14 @@
         <section class="booth-header">
             <h2 class="event-name" th:text="${event.eventName}">イベント名</h2>
             <h1 th:text="${booth.boothName}">担当ブース名</h1>
+            <div class="staff-count">
+                <span>所属スタッフ数</span>
+                <strong th:text="${staffCount}">0</strong>
+                <span>人</span>
+            </div>
             <p class="booth-description" th:text="${booth.description}">ブースの説明</p>
             <p class="booth-location" th:text="${booth.location}">場所</p>
+
         </section>
 
         <!-- 管理メニュー -->

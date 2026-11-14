@@ -12,4 +12,5 @@ import com.event.event_manager.Entity.Booths;
 public interface BoothsRepository extends JpaRepository <Booths,Long> {    
     List<Booths> findByEventId(Long eventId);
     Optional<Booths> findByIdAndEventId(Long Id, Long eventId);
+    Long countByEventId(Long eventId);
 }

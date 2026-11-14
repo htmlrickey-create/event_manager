@@ -17,4 +17,5 @@ public interface EventMemberRepository extends JpaRepository <EventMembers, Long
     List<EventMembers> findByUser_Email (String email);
     List<EventMembers> findByEvent_IdAndRole(Long eventId, String role);
     Optional<EventMembers> findByUser_EmailAndRole(String email, String role);
+    long countByEvent_IdAndBooth_IdAndRole(Long eventI, Long boothId, String role);
 }

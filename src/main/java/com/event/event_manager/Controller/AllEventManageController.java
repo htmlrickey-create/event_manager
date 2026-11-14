@@ -1,7 +1,9 @@
 
 package com.event.event_manager.Controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,9 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.event.event_manager.Entity.Booths;
 import com.event.event_manager.Entity.Category;
 import com.event.event_manager.Entity.Users;
 import com.event.event_manager.Form.BoothsForm;
+import com.event.event_manager.Repository.BoothsRepository;
+import com.event.event_manager.Repository.EventMemberRepository;
 import com.event.event_manager.Repository.UsersRepository;
 import com.event.event_manager.Service.BoothServer;
 import com.event.event_manager.Service.CategoryADMINService;
@@ -34,7 +39,8 @@ public class AllEventManageController {
     private final EventPermissionService permissionService;
     private final UsersRepository repository;
     private final StaffAcountCreateService staffAcountCreateService;
-
+    private final BoothsRepository boothsRepository;
+    private final EventMemberRepository eventMemberRepository;
 
    
     @GetMapping("/events/{eventId}/manage")
@@ -67,9 +73,25 @@ public class AllEventManageController {
             categoryADMINService.getCategoriesByEventId(eventId)
         );
 
+        List<Booths> booths = server.getBoothsByEventId(eventId);
+
+        Map<Long, Long> staffCounts = new HashMap<>();
+
+        for(Booths booth : booths){
+            long staffCount = eventMemberRepository.countByEvent_IdAndBooth_IdAndRole(eventId, booth.getId(), "STAFF");
+
+            staffCounts.put(booth.getId(), staffCount);
+        }
+
         model.addAttribute("boothsForm", new BoothsForm());
 
         model.addAttribute("booths", server.getBoothsByEventId(eventId));
+
+        model.addAttribute("staffCount", staffCounts);
+
+        long boothCount = boothsRepository.countByEventId(eventId);
+
+        model.addAttribute("countBooths",boothCount);
 
         return "booths/createBooths";
     }
