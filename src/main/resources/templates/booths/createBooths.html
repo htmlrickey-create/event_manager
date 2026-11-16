@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 
@@ -309,7 +308,7 @@
                         </div>
 
                         <button type="submit" class="primary-button">
-                            ＋ カテゴリーを追加
+                            ＋ イベントカテゴリーを追加
                         </button>
 
                     </form>
@@ -318,7 +317,7 @@
 
                         <div th:if="${#lists.isEmpty(categories)}"
                              class="empty-state">
-                            まだカテゴリーが登録されていません。
+                            まだイベントカテゴリーが登録されていません。
                         </div>
 
                         <div th:each="category : ${categories}"
@@ -393,13 +392,13 @@
 
                             <textarea id="description"
                                       th:field="*{description}"
-                                      placeholder="ブースの説明を入力してください。">
+                                      placeholder="出店の説明を入力してください。">
                             </textarea>
                         </div>
 
                         <div class="form-actions">
                             <button type="submit" class="primary-button">
-                                ブースを登録する
+                                出店情報を登録する
                             </button>
                         </div>
 
@@ -437,6 +436,7 @@
 
                     <div class="booth-list">
 
+                        <!-- ブースごとの繰り返し表示 -->
                         <div th:each="booth : ${booths}"
                              class="booth-list-item">
 
@@ -457,6 +457,16 @@
                                     </div>
 
                                 </div>
+
+                            </div>
+
+                            <!-- Staff管理画面へのリンク -->
+                            <div class="booth-actions">
+
+                                <a th:href="@{/staff/booths/{boothId}/manage(boothId=${booth.id})}"
+                                   class="staff-manage-button">
+                                    スタッフ管理画面に移る
+                                </a>
 
                             </div>
 
@@ -588,6 +598,7 @@
 
                 <div class="management-grid">
 
+
                     <!-- Admin管理 -->
                     <div class="panel feature-panel">
                         <h3>Admin管理</h3>
@@ -699,6 +710,7 @@
                             <h4 th:text="'Staff #' + (${stat.index} + 1)">
                                 Staff #1
                             </h4>
+
 
                             <!-- メールアドレス -->
                             <div class="form-group">
@@ -839,6 +851,7 @@
 
 <!-- コピー機能 -->
 <script>
+
     function copyCredential(button) {
 
         // ボタンに設定されたコピー対象の文字列を取得
@@ -865,6 +878,7 @@
             });
 
     }
+
 </script>
 
 </body>

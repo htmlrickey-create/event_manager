@@ -831,6 +831,27 @@ textarea {
     font-weight: 600;
 }
 
+.booth-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 12px;
+}
+
+.staff-manage-button {
+    display: inline-block;
+    padding: 9px 16px;
+    background: #5267d8;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.staff-manage-button:hover {
+    background: #4053bd;
+}
 
 /* Finance */
 
