@@ -58,4 +58,35 @@ public class ProductService {
         return productRepository.save(products);
     }
     
+    public Products updateProduct(String email, Long boothId, Long productId, Products updateProducts){
+        checkBoothPermission(email, boothId);
+
+        Products product = productRepository.findByIdAndBooth_Id(productId, boothId).orElseThrow(()-> new IllegalArgumentException("商品が見つかりません"));
+
+        product.setProductName(updateProducts.getProductName());
+        product.setDescription(updateProducts.getDescription());
+        product.setPrice(updateProducts.getPrice());
+        product.setStockQuantity(updateProducts.getStockQuantity());
+
+        return  productRepository.save(product);
+    }
+
+    public void deleteProduct(String email, Long boothId, Long productId){
+        checkBoothPermission(email, boothId);
+
+        Products product = productRepository.findByIdAndBooth_Id(productId, boothId).orElseThrow(()-> new IllegalArgumentException("商品が見つかりません"));
+
+        productRepository.delete(product);
+    }
+
+    public Products getProduct(String email, Long boothId, Long productId){
+        checkBoothPermission(email, boothId);
+
+        Products product = productRepository.findByIdAndBooth_Id(productId, boothId).orElseThrow(()-> new IllegalArgumentException("商品が見つかりません"));
+
+        return product;
+    }
+
+
+
 }

@@ -11,12 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.event.event_manager.Entity.Booths;
-import com.event.event_manager.Entity.EventMembers;
-import com.event.event_manager.Entity.Events;
 import com.event.event_manager.Entity.Products;
 import com.event.event_manager.Form.ProductForm;
-import com.event.event_manager.Repository.EventMemberRepository;
 import com.event.event_manager.Service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -31,7 +27,6 @@ public class ProductController {
     public String viewProduct(@PathVariable Long boothId, Authentication authentication, Model model){
 
         String email = authentication.getName();
-        productService.checkBoothPermission(email, boothId);
 
 
         model.addAttribute("boothId", boothId);
@@ -61,5 +56,51 @@ public class ProductController {
 
         return "redirect:/booths/"+ boothId + "/products";
     }
+
+    @PostMapping ("/booths/{boothId}/products/{productId}/delete")
+    public String deleteProduct(@PathVariable Long boothId, @PathVariable Long productId, Authentication authentication,Model model){
+        String email = authentication.getName();
+
+        productService.deleteProduct(email, boothId, productId);
+
+        return "redirect:/booths/"+ boothId + "/products";
+    }
+
+    @PostMapping ("/booths/{boothId}/products/{productId}/edit")
+    public String editProduct(@PathVariable Long boothId, @PathVariable Long productId, Authentication authentication , Model model, @ModelAttribute  ProductForm form){
+        String email = authentication.getName();
+
+        Products updateProduct  = new Products();
+        
+        updateProduct.setProductName(form.getProductName());
+        updateProduct.setDescription(form.getDescription());
+        updateProduct.setPrice(form.getPrice());
+        updateProduct.setStockQuantity(form.getStockQuantity());
+
+        productService.updateProduct(email, boothId, productId, updateProduct);
+
+        return "redirect:/booths/" + boothId + "/products";
+
+    }
+
+    @GetMapping("/booths/{boothId}/products/{productId}/edit")
+        public String showEditProduct(@PathVariable Long boothId,@PathVariable Long productId,Authentication authentication,Model model) {
+
+            String email = authentication.getName();
+
+            Products product = productService.getProduct(email, boothId, productId);
+
+            ProductForm form = new ProductForm();
+            form.setProductName(product.getProductName());
+            form.setDescription(product.getDescription());
+            form.setPrice(product.getPrice());
+            form.setStockQuantity(product.getStockQuantity());
+
+            model.addAttribute("boothId", boothId);
+            model.addAttribute("productId", productId);
+            model.addAttribute("productForm", form);
+
+            return "booths/product-edit";
+        }
     
 }

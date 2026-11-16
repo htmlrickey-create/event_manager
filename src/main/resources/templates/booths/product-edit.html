@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品編集 | Event Manager</title>
+    <link rel="stylesheet" th:href="@{/css/products.css}">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <a th:href="@{/staff/booths/{boothId}/manage(boothId=${boothId})}"class="logo">店舗商品管理</a>
+        <span class="header-label">商品編集</span>
+    </div>
+</header>
+
+<main class="container">
+
+    <div class="page-heading">
+        <p class="eyebrow">店舗商品管理MANAGEMENT</p>
+        <h1>商品編集</h1>
+        <p class="page-description">
+            商品の情報を変更できます。
+        </p>
+    </div>
+
+    <section class="panel">
+
+        <div class="section-heading">
+            <div>
+                <h2>商品情報の変更</h2>
+                <p>変更したい項目を入力してください。</p>
+            </div>
+        </div>
+
+        <form th:action="@{/booths/{boothId}/products/{productId}/edit(boothId=${boothId},productId=${productId})}"
+              method="post"
+              th:object="${productForm}"
+              class="product-form">
+
+            <div class="form-group">
+                <label for="productName">商品名</label>
+                <input type="text"
+                       id="productName"
+                       th:field="*{productName}"
+                       maxlength="150"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">商品説明</label>
+                <textarea id="description"
+                          th:field="*{description}"
+                          rows="4"></textarea>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+                    <label for="price">価格（円）</label>
+                    <input type="number"
+                           id="price"
+                           th:field="*{price}"
+                           min="0"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label for="stockQuantity">在庫数</label>
+                    <input type="number"
+                           id="stockQuantity"
+                           th:field="*{stockQuantity}"
+                           min="0">
+                    <small>未入力の場合は在庫数を設定しません。</small>
+                </div>
+
+            </div>
+
+            <button type="submit" class="submit-button">
+                変更を保存する
+            </button>
+
+        </form>
+
+    </section>
+
+    <div class="back-area">
+        <a th:href="@{/booths/{boothId}/products(boothId=${boothId})}"
+           class="back-link">
+            商品一覧に戻る
+        </a>
+    </div>
+
+</main>
+
+</body>
+</html>
